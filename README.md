@@ -13,4 +13,4 @@ Personal dotfiles.
 ## LICENSE
 
 This repository is under the MIT License.
-See `./LICENSE` for details.
+See [./LICENSE](./LICENSE) for details.
