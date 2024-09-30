@@ -1,0 +1,148 @@
+########## git ##########
+local_repos=(
+    # Define repo dirs here.
+)
+
+# Update all local git repos.
+function pull() {
+    for repo in "${local_repos[@]}"; do
+        if [[ ! -d "${repo}" ]]; then
+            errormsg "${repo} does not exist!"
+            continue
+        fi
+
+        (
+            cd "${repo}" || die "Could not cd into ${repo}!"
+            purplemsg "$(pwd)"
+
+            if ! git rev-parse --is-inside-work-tree &>'/dev/null'; then
+                errormsg "$(pwd) is not part of a git repo!"
+                return 1
+            fi
+
+            if [[ -z "$(git status --porcelain)" ]]; then
+                git pull
+                return 0
+            fi
+
+            yellowmsg "${repo} needs attention before a safe pull can be made"
+        )
+    done
+}
+
+# Status of all local repos.
+function status() {
+    for repo in "${local_repos[@]}"; do
+        if [[ ! -d "${repo}" ]]; then
+            errormsg "No such directory: ${repo}"
+            continue
+        fi
+
+        (
+            cd "${repo}" || die "Could not cd into ${repo}!"
+
+            if ! git rev-parse --is-inside-work-tree &>'/dev/null'; then
+                errormsg "Not part of a git repo: ${PWD}"
+                return 1
+            fi
+
+            if [[ -z "$(git status --porcelain)" ]]; then
+                successmsg "Up to date: ${repo}"
+                return 0
+            fi
+
+            yellowmsg "Needs attention: $(pwd)"
+            git status
+        )
+    done
+}
+
+# Add everything.
+function add() {
+    for repo in "${local_repos[@]}"; do
+        if [[ ! -d "${repo}" ]]; then
+            errormsg "${repo} does not exist!"
+            continue
+        fi
+
+        (
+            cd "${repo}" || die "Could not cd into ${repo}!"
+            purplemsg "$(pwd)"
+
+            if ! git rev-parse --is-inside-work-tree &>'/dev/null'; then
+                errormsg "${PWD} is not part of a git repo!"
+                return 1
+            fi
+
+            git add .
+        )
+    done
+}
+
+# Push all repos.
+function push() {
+    for repo in "${local_repos[@]}"; do
+        if [[ ! -d "${repo}" ]]; then
+            errormsg "${repo} does not exist!"
+            continue
+        fi
+
+        (
+            cd "${repo}" || die "Could not cd into ${repo}!"
+            purplemsg "${PWD}"
+
+            if ! git rev-parse --is-inside-work-tree &>'/dev/null'; then
+                errormsg "${PWD} is not part of a git repo!"
+                return 1
+            fi
+
+            if [[ "$(git status)" == *'Your branch is ahead of'* ]]; then
+                git push
+            fi
+        )
+    done
+}
+
+# Commit and push everything, everywhere.
+function fpushall() {
+    for repo in "${local_repos[@]}"; do
+        if [[ ! -d "${repo}" ]]; then
+            errormsg "${repo} does not exist!"
+            continue
+        fi
+
+        (
+            cd "${repo}" || die "Could not cd into ${repo}!"
+
+            if ! git rev-parse --is-inside-work-tree &>'/dev/null'; then
+                errormsg "${PWD} is not part of a git repo!"
+                return 1
+            fi
+
+            purplemsg "$(pwd)"
+            if [[ -n "$(git status --porcelain)" ]]; then
+                git add -A && git commit -m "update"
+            fi
+
+            if [[ "$(git status)" == *'Your branch is ahead of'* ]]; then
+                git push
+            fi
+        )
+    done
+}
+
+# Commit and push everything, in current repo.
+function fpush() {
+    if ! git rev-parse --is-inside-work-tree &>'/dev/null'; then
+        errormsg "${PWD} is not part of a git repo!"
+        return 1
+    fi
+
+    if [[ -n "$(git status --porcelain)" ]]; then
+        git add -A && git commit -m "update"
+    fi
+
+    if [[ "$(git status)" == *'Your branch is ahead of'* ]]; then
+        git push
+    fi
+}
