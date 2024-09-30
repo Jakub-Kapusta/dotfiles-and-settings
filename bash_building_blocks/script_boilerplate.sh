@@ -16,17 +16,17 @@ trap cleanup SIGINT SIGTERM ERR EXIT
 # The directory in which the current script is located.
 # Symbolic links are read and the real path is used.
 # Change this behavior if needed.
-scritp_dir="$(dirname "$(readlink -f "${0}")")"
+script_dir="$(dirname "$(readlink -f "${0}")")"
 
 # The filename of the current script.
 # Symbolic links are read and the real name is used.
 # Change this behavior if needed.
-scritp_name="$(basename "$(readlink -f "${0}")")"
+script_name="$(basename "$(readlink -f "${0}")")"
 
 # Use this to show script usage when called with -h or --help.
 usage() {
     cat <<EOF
-Usage: ${scritp_name} [-h] [-v] [-f] -p param_value arg1 [arg2...]
+Usage: ${script_name} [-h] [-v] [-f] -p param_value arg1 [arg2...]
 
 Script description here.
 
