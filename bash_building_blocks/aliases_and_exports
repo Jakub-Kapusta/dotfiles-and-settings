@@ -1,0 +1,31 @@
+## Exports
+export EDITOR='/usr/bin/nvim'
+export VISUAL='/usr/bin/nvim'
+
+# Private binaries
+export PATH="${HOME}/bin:${PATH}"
+
+## Aliases
+alias cp='cp -i'
+alias mv='mv -i'
+alias ls='ls -lh --color'
+alias grep='grep -In --color'
+alias mkdir='mkdir -p'
+alias df='df -h'
+alias free='free -h'
+alias ps='ps auxf'
+
+alias code="vscodium"
+alias c="vscodium"
+alias vim='nvim'
+alias vi='nvim'
+alias e='nvim'
+
+# Search command line history
+alias h="history | grep -i"
+# Search running processes
+alias p="ps aux | grep "
+# Show open ports
+alias openports='netstat -nape --inet'
+# Update all
+alias u='sudo pacman -Syuu'
