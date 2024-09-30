@@ -1,0 +1,10 @@
+[user]
+        name = Jakub Kapusta
+        email = jakub-dev1@protonmail.com
+[init]
+        defaultBranch = main
+[core]
+        editor = nvim
+[pager]
+        branch = false
+        tag = false
