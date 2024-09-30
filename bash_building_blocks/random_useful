@@ -1,0 +1,11 @@
+# Print error message and exit 1
+# Must be independent of other functions.
+# see ./colors for the color definitions.
+function die() {
+    if [[ "${#}" -ne 1 ]]; then
+        echo -e "${colors[red]}Wrong use of die()!${colors[noformat]}" >&2
+    else
+        echo -e "${colors[red]}${1}${colors[noformat]}" >&2
+    fi
+    exit 1
+}
