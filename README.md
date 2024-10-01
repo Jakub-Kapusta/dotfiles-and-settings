@@ -1,6 +1,7 @@
-# Personal dotfiles, settings, boilerplates, and snippets.
+# Personal dotfiles, settings, boilerplates, and snippets
 
 ## bash_building_blocks
+
 The definitions in the following files can be used by copy-pasting into you sript, or sourcing them.
 
 - [aliases_and_exports](./bash_building_blocks/aliases_and_exports): Personal aliases end exports.
@@ -10,6 +11,7 @@ The definitions in the following files can be used by copy-pasting into you srip
 - [script_boilerplate.sh](./bash_building_blocks/script_boilerplate.sh): Robust boilerplate for shell scripting.
 
 ## dotfiles
+
 Personal dotfiles.
 
 ## LICENSE
