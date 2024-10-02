@@ -104,7 +104,13 @@ function push() {
 }
 
 # Commit and push everything, everywhere.
+# Optionally, pass the commit message as $1.
 function fpushall() {
+    if [[ "${#}" -gt 1 ]]; then
+        errormsg "Unsupported number of arguments: need 1 but received ${#}"
+        return 1
+    fi
+
     for repo in "${local_repos[@]}"; do
         if [[ ! -d "${repo}" ]]; then
             errormsg "${repo} does not exist!"
@@ -120,8 +126,10 @@ function fpushall() {
             fi
 
             purplemsg "$(pwd)"
+            commit_message="${1:-'Update'}"
+
             if [[ -n "$(git status --porcelain)" ]]; then
-                git add -A && git commit -m "update"
+                git add -A && git commit -m "${commit_message}"
             fi
 
             if [[ "$(git status)" == *'Your branch is ahead of'* ]]; then
@@ -132,14 +140,22 @@ function fpushall() {
 }
 
 # Commit and push everything, in current repo.
+# Optionally, pass the commit message as $1.
 function fpush() {
+    if [[ "${#}" -gt 1 ]]; then
+        errormsg "Unsupported number of arguments: need 1 but received ${#}"
+        return 1
+    fi
+
     if ! git rev-parse --is-inside-work-tree &>'/dev/null'; then
         errormsg "${PWD} is not part of a git repo!"
         return 1
     fi
 
+    commit_message="${1:-'Update'}"
+
     if [[ -n "$(git status --porcelain)" ]]; then
-        git add -A && git commit -m "update"
+        git add -A && git commit -m "${commit_message}"
     fi
 
     if [[ "$(git status)" == *'Your branch is ahead of'* ]]; then
