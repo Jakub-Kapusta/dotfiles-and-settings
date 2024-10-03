@@ -15,6 +15,7 @@ alias df='df -h'
 alias free='free -h'
 alias ps='ps auxf'
 alias gtls='git tag -l --sort=taggerdate'
+alias py='python3'
 
 alias code="vscodium"
 alias c="vscodium"
