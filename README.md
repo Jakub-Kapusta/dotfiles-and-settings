@@ -2,7 +2,7 @@
 
 ## bash_building_blocks
 
-The definitions in the following files can be used by copy-pasting into you sript, or sourcing them.
+The definitions in the following files can be used by copy-pasting into you script, or sourcing them.
 
 - [aliases_and_exports](./bash_building_blocks/aliases_and_exports): Personal aliases end exports.
 - [colors](./bash_building_blocks/colors): Colored printout definitions.

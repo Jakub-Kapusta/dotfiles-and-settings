@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# A lot of snippets here are taken from or insipired by
+# A lot of snippets here are taken from or inspired by
 # https://github.com/ChrisTitusTech/mybash
 # by https://github.com/ChrisTitusTech (Big Thanks)
 
